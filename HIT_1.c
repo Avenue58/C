@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-  
+#include <time.h>
 struct person
 {
     const char* name;
@@ -14,9 +14,16 @@ int load(char * filename);
 int main(void)
 {
     char * filename = "prog.bin";
-    struct person tom = {"p1",{14, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1 }};
-  
-    save(filename, &tom);
+    struct person p1 = {"p1",{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }};
+	srand(time(NULL));
+	for (int j = 0; j < 3; j++){
+		
+		int r = rand()%10;
+
+		printf("%d ", r);
+		p1.a[r-1] = p1.a[r-1]+ 1;
+	}
+    save(filename, &p1);
     load(filename);
       
     return 0;
