@@ -15,17 +15,33 @@ int main(void)
 {
     char * filename = "prog.bin";
     struct person p1 = {"p1",{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }};
+	struct person p2 = {"p2",{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }};
+    struct person p3 = {"p3",{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }};
 	srand(time(NULL));
 	for (int j = 0; j < 3; j++){
-		
-		int r = rand()%10;
-
+		int r = rand()%9 + 1;
 		printf("%d ", r);
+		printf("\n");
 		p1.a[r-1] = p1.a[r-1]+ 1;
+	}
+	for (int j = 0; j < 3; j++){
+		int r = rand()%9 + 1;
+		printf("%d ", r);
+		printf("\n");
+		p2.a[r-1] = p2.a[r-1]+ 1;
+	}
+	for (int j = 0; j < 3; j++){
+		int r = rand()%9 + 1;
+		printf("%d ", r);
+		printf("\n");
+		p3.a[r-1] = p3.a[r-1]+ 1;
 	}
     save(filename, &p1);
     load(filename);
-      
+    save(filename, &p2);
+    load(filename);
+    save(filename, &p3);
+    load(filename);
     return 0;
 }
   
@@ -83,5 +99,6 @@ int load(char * filename)
 	printf("%d ",*(ptr->a + i));
 	}
    // free(ptr);
+   printf("\n");
     return 0;
 }
