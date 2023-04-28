@@ -10,43 +10,26 @@ struct person
   
 int save(char * filename, struct person *p);
 int load(char * filename);
+int move(struct person *p);
   
 int main(void)
 {
-    char * filename = "prog.bin";
-    struct person p1 = {"p1",{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }};
-	struct person p2 = {"p2",{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }};
-    struct person p3 = {"p3",{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }};
+    //char * filename = "prog.bin";
+    struct person p1 = {"p1",{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0 }};
+	struct person p2 = {"p2",{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0 }};
+    struct person p3 = {"p3",{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0 }};
 	srand(time(NULL));
-	for (int j = 0; j < 3; j++){
-		int r = rand()%9 + 1;
-		printf("%d ", r);
-		printf("\n");
-		p1.a[r-1] = p1.a[r-1]+ 1;
-	}
-	for (int j = 0; j < 3; j++){
-		int r = rand()%9 + 1;
-		printf("%d ", r);
-		printf("\n");
-		p2.a[r-1] = p2.a[r-1]+ 1;
-	}
-	for (int j = 0; j < 3; j++){
-		int r = rand()%9 + 1;
-		printf("%d ", r);
-		printf("\n");
-		p3.a[r-1] = p3.a[r-1]+ 1;
-	}
-    save(filename, &p1);
-    load(filename);
-    save(filename, &p2);
-    load(filename);
-    save(filename, &p3);
-    load(filename);
+	move(&p1);
+	move(&p2);
+	move(&p3);
+	move(&p1);
+	move(&p2);
+	move(&p3);
     return 0;
 }
-  
+
 // запись структуры в файл
-int save(char * filename, struct person *p)
+int save(char * filename, struct person * p)
 {
     FILE * fp ;//= NULL;
     //printf ("%s\n", filename);
@@ -101,4 +84,42 @@ int load(char * filename)
    // free(ptr);
    printf("\n");
     return 0;
+}
+int move(struct person *p)
+{	int b[3];
+	char * filename = "prog.bin";
+	for (int j = 0; j < 3; j++){
+		int r = rand()%9 + 1;
+		b[j] = r;
+		printf("%d ", r);
+		printf("\n");
+		p->a[r-1] = p->a[r-1] + 1;
+		//printf("%d ", b[j]);
+	}
+	if (b[0] == b[1] || b[0] == b[2] || b[1] == b[2]){
+		for (int j = 0; j < 3; j++){
+			p->a[b[0]-1] = 0;
+			p->a[b[1]-1] = 0;
+			p->a[b[2]-1] = 0;
+		}
+		p->a[11] = p->a[11] + 1;
+	}
+	else {
+		p->a[10] = b[0] + b[1] + b[2];
+		for (int j = 0; j < 3; j++){
+			p->a[b[0]-1] = 0;
+			p->a[b[1]-1] = 0;
+			p->a[b[2]-1] = 0;
+		}
+	}
+	if (p->a[11] == 3){
+		p->a[10] = p->a[10] + 50;
+		p->a[11] = 0;
+	}
+	//p->a[10] -  ячейка для суммы
+	//p->a[11] - ячейка для карт лося
+	//p->a[12] - статус хода 
+	save(filename, p);
+    load(filename);
+	return 0;
 }
