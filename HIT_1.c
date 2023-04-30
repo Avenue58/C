@@ -108,8 +108,8 @@ int move(struct person *p)
 	for (int j = 0; j < 3; j++){
 		int r = rand()%9 + 1;
 		b[j] = r;
-		printf("%d ", r);
-		printf("\n");
+		//printf("%d ", r);
+		//printf("\n");
 		p->a[r-1] = p->a[r-1] + 1;
 		//printf("%d ", b[j]);
 	}
