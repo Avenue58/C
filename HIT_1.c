@@ -15,16 +15,33 @@ int move(struct person *p);
 int main(void)
 {
     //char * filename = "prog.bin";
-    struct person p1 = {"p1",{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0 }};
-	struct person p2 = {"p2",{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0 }};
-    struct person p3 = {"p3",{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0 }};
+    struct person p1 = {"p1",{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }};
+	struct person p2 = {"p2",{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }};
+    struct person p3 = {"p3",{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }};
 	srand(time(NULL));
-	move(&p1);
-	move(&p2);
-	move(&p3);
-	move(&p1);
-	move(&p2);
-	move(&p3);
+	for( int i = 0; i<1000; i++){// самый легкий выход из ситуации
+		if(p3.a[10] < 100){
+			move(&p1);
+		}
+		else{
+			printf("p3 - WINNER \n");
+			return 0;
+		}
+		if(p1.a[10] < 100){
+			move(&p2);
+		}
+		else{
+			printf("p1 - WINNER \n");
+			return 0;
+		}
+		if(p2.a[10] < 100){
+			move(&p3);
+		}
+		else{
+			printf("p2 - WINNER \n");
+			return 0;
+		}
+	}
     return 0;
 }
 
@@ -105,8 +122,8 @@ int move(struct person *p)
 		p->a[11] = p->a[11] + 1;
 	}
 	else {
-		p->a[10] = b[0] + b[1] + b[2];
-		for (int j = 0; j < 3; j++){
+		p->a[10] = p->a[10] + b[0] + b[1] + b[2];
+		for (int j = 0; j < 10; j++){
 			p->a[b[0]-1] = 0;
 			p->a[b[1]-1] = 0;
 			p->a[b[2]-1] = 0;
