@@ -45,7 +45,7 @@ int main(void)
     return 0;
 }
 
-// запись структуры в файл
+// запись структуры в файл.
 int save(char * filename, struct person * p)
 {
     FILE * fp ;//= NULL;
